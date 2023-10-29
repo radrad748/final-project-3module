@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Amiri Quran
+- Font Author: Copyright 2010-2022 The Amiri Project Authors (https://github.com/aliftype/amiri).
+- Font Source: http://fonts.gstatic.com/s/amiriquran/v7/_Xmo-Hk0rD6DbUL4_vH8Zq5t7Cycsu-2.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

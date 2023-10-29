@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn" name="MyLog">
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="logs/quest.log"
+                     filePattern="logs/quest.%d{yyyy-MM-dd}.log">
+            <PatternLayout charset="UTF-8">
+                <Pattern>%d %p %c{1}: %m%n</Pattern>
+            </PatternLayout>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="1">
+                    <IfFileName glob="quest.*.log" />
+                    <IfLastModified age="P7D" />
+                </Delete>
+            </DefaultRolloverStrategy>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+        <Console name="STDOUT" target="SYSTEM_ERR">
+            <PatternLayout pattern="%d %p %c{1}: %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</configuration>

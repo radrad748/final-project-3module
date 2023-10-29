@@ -1,0 +1,58 @@
+.logout {
+    text-decoration: none;
+    color: white;
+}
+.logout:hover {
+    color: #807c7c;
+}
+
+.divPlay {
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-top: 5%;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.image-question {
+    width: 400px;
+    height: 300px;
+}
+.divImage {
+    width: 15%;
+    height: 15%;
+    margin-left: 25%;
+}
+
+.divForm {
+    width: 80%;
+    height: 35%;
+    margin-top: 25%;
+    margin-left: 6%;
+    background-color: #ece5e5;
+}
+label {
+    font-size: 20px;
+}
+
+.divAnswers {
+    width: 80%;
+    height: 80%;
+    margin-left: 3%;
+    padding-top: 1%;
+}
+
+.btn-question {
+    height: 30px;
+    width: 80px;
+    font-size: 11px;
+}
+.div-btn {
+    width: 15%;
+    height: 15%;
+    margin-left: 76%;
+    padding-top: 1%;
+}

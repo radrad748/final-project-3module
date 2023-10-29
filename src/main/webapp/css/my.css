@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.head {
+    background-color: rgba(7, 7, 7, 0.86);
+}
+
+.head-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.image-start-div {
+    width: 30%;
+    height: 30%;
+    margin-left: 42%;
+    margin-top: 7%;
+}
+
+.image-start:hover {
+    opacity: 0.3;
+}
+
+.head-next {
+    width: 50%;
+    height: 50%;
+    margin-left: 30%;
+    margin-top: 4%;
+}
+.head-next-article {
+    width: 50%;
+    height: 50%;
+}
