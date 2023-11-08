@@ -1,9 +1,8 @@
-<%@ page import="com.javarush.radik.entity.Question" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 27.10.2023
-  Time: 17:59
+  Date: 30.10.2023
+  Time: 18:37
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -40,37 +39,18 @@
     </div>
 </nav>
 <div class="divPlay">
-    <%
-        HttpSession session1 = request.getSession();
-        int indexQuestion = (int) session1.getAttribute("numberQuestion") - 1;
-        List<Question> questions = (List<Question>) session1.getAttribute("questions");
-        List<String> answers = questions.get(indexQuestion).getAnswers();
-        int indexTrueAnswer= questions.get(indexQuestion).getIndexTrueAnswer();
-        session1.setAttribute("indexTrueAnswer", indexTrueAnswer);
-        session1.setAttribute("trueAnswer", questions.get(indexQuestion).getTrueAnswer());
-        session1.setAttribute("wrongAnswer", questions.get(indexQuestion).getFalseAnswer());
-    %>
-    <p>Вопрос <%= session1.getAttribute("numberQuestion") %> из 10</p>
-    <h1 class="center-text"><%= questions.get(indexQuestion).getQuestion() %></h1>
-    <div class="divImage">
-        <img src="<%= questions.get(indexQuestion).getPathImage() %>" class="image-question">
-    </div>
-    <form method="get" action="#" id="myForm">
-    <div class="divForm">
-        <div class="divAnswers">
-                <% for (int i = 0; i < answers.size(); i++) { %>
-                <input type="radio" id="<%= "option" + i %>" name="group" value="<%= i %>">
-                <label for="<%= "option" + i %>"><%= answers.get(i) %></label><br>
-                <% } %>
+    <h1 class="center-text">Список игр</h1>
+    <div class="div-card">
+        <div class="card card-games" style="width: 18rem;">
+            <img src="/images/card-game.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Вопросы</h5>
+                <p class="card-text">Уровень легкий: пройти 10 вопросов</p>
+                <a href="/start" class="btn btn-secondary">Играть</a>
+            </div>
         </div>
     </div>
-     <div class="div-btn">
-         <input type="submit" value="ОТВЕТИТЬ" class="btn btn-secondary btn-question">
-     </div>
-    </form>
 </div>
-<% ServletContext context = request.getServletContext();
-    context.setAttribute("pathJs", "WEB-INF/js/play-page.js"); %>
-<script src="/all-js"></script>
+
 </body>
 </html>

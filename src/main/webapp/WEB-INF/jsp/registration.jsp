@@ -29,14 +29,14 @@
             <div class="form-group" id="email-div">
                 <label class="col-md-4 control-label" for="text-input-email">Email</label>
                 <div class="col-md-4">
-                    <input id="text-input-email" name="text-input-email-name" type="text" placeholder="email" class="form-control input-md">
+                    <input id="text-input-email" name="text-input-email-name" type="email" placeholder="email" class="form-control input-md" maxlength="200">
                 </div>
             </div>
             <!-- Text input-->
             <div class="form-group" id="name-div">
                 <label class="col-md-4 control-label" for="text-input-name">Name</label>
                 <div class="col-md-4">
-                    <input id="text-input-name" name="text-input-name-name" type="text" placeholder="name" class="form-control input-md">
+                    <input id="text-input-name" name="text-input-name-name" type="text" placeholder="name" class="form-control input-md" maxlength="100">
                 </div>
             </div>
             <!-- Password input-->
@@ -50,6 +50,8 @@
         <a href="/" style="margin-left: 10px;">Beck</a>
     </form>
 </div>
-<script src="/registration-js"></script>
+<% ServletContext context = request.getServletContext();
+    context.setAttribute("pathJs", "WEB-INF/js/registration.js"); %>
+<script src="/all-js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.javarush.radik.entity.DTO.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 23.10.2023
@@ -6,9 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% UserDto d = (UserDto) session.getAttribute("user");
+    if (d != null) {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/first-page");
+        dispatcher.forward(request, response);
+    }%>
 <html>
 <head>
-    <title>Start Quest</title>
+    <title>Quest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
@@ -26,9 +31,7 @@
 <div class="head-next">
     <img src="/images/article.png">
     <div class="head-next-article">
-        <p>Привет!</p>
-        <p>Сейчас вы сыграете в игру под названием “Реальная Мозгокачка”. В нем будет 10 интересных вопросов,
-            мало кому удалось пройти весь путь без ошибок. Попробуй свои силы, будет интересно!!! </p>
+        <br><br><br><br>
         <form method="post" action="/login">
             <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
@@ -43,6 +46,8 @@
         </form>
     </div>
 </div>
-<script src="/my-js"></script>
+<% ServletContext context = request.getServletContext();
+   context.setAttribute("pathJs", "WEB-INF/js/my-js.js"); %>
+<script src="/all-js"></script>
 </body>
 </html>

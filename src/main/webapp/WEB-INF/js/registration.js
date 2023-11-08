@@ -72,6 +72,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
 
 
 function isValidEmail(email) {
+    if (email.trim().length > 30) return false;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     return emailRegex.test(email);
 }
@@ -90,6 +91,6 @@ function isStrongPassword(password) {
 }
 
 function isValidName(name) {
-   const validName = name && name.trim().length > 1;
+   const validName = name && name.trim().length > 1 && name.trim().length <= 30;
    return validName;
 }

@@ -81,7 +81,7 @@ public class LoginPage extends HttpServlet {
     }
    //успешная авторизация и перевод на первую страницу игры
     private void successfulLogin(HttpServletResponse resp) throws IOException {
-        log.info("User успешно авторизоваться, отправка redirect на first page");
+        log.info("User успешно авторизоваться, отправка redirect на list of games page");
         try (PrintWriter out = resp.getWriter()) {
             //отправляем ответ true и ссылку
             JSONObject jsonResponse = new JSONObject();

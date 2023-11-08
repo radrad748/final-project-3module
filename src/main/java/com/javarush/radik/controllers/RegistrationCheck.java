@@ -58,6 +58,7 @@ public class RegistrationCheck extends HttpServlet {
     //проверка на то являеться ли строка адрес email
     private boolean isValidEmail(String email) {
         log.info("Проверка валидность email при регистрации");
+        if (email.trim().length() > 30) return false;
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
@@ -67,7 +68,8 @@ public class RegistrationCheck extends HttpServlet {
     //проверка на валидность имени
     private boolean isValidName(String name) {
         log.info("Проверка валидность имени пользователя при регистрации");
-        return name.trim().length() > 1;
+        if (name.trim().length() > 1 && name.trim().length() <= 30) return true;
+        else return false;
     }
     //проверка являеться ли пароль надежным
     private boolean isValidPassword(String password) {

@@ -11,15 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-// переход на первую страницу после как пользователь успешно залогинелся
-@WebServlet(value = "/first-page")
-public class FirstPage extends HttpServlet {
+@WebServlet(value = "/statistics")
+public class StatisticsPage extends HttpServlet {
     private final Logger log = LoggerFactory.getLogger(FirstPage.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Переходим на страницу старта после как пользователь успешного залогинелся");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/first-page.jsp");
+        log.info("перевод на страниу по адресу /statistics");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/statistics.jsp");
         dispatcher.forward(req, resp);
     }
-
 }

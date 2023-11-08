@@ -1,4 +1,4 @@
-<%@ page import="com.javarush.radik.entity.DTO.UserDto" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: User
   Date: 20.10.2023
@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Start Quest</title>
+    <title>Quest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
@@ -24,16 +24,11 @@
             <img src="/images/Quest.png" alt="Logo" class="head-image">
     </div>
 </nav>
-<%
-    HttpSession session1 = request.getSession();
-    UserDto user = (UserDto) session1.getAttribute("user");
-    String name = user.getName();
-%>
-<div class="image-start-div">
-    <h1>Добро пожаловать <%= name %></h1>
-    <h2>Жми старт и погнали!</h2><br>
-    <a href="/play" class="image-start">
-        <img src="/images/start.png" alt="Start" height="250" width="300">
+<div style="padding-top: 5%">
+        <h1 style="text-align: center">Вопросы: легкий левел!</h1>
+        <h2 style="text-align: center">жми старт и погнали!</h2><br>
+    <a href="/play" style="margin-left: 42%">
+        <img src="/images/start.png" alt="Start" height="250" width="300" class="image-start">
     </a>
 </div>
 </body>

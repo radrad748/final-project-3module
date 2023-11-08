@@ -15,6 +15,7 @@ public class Question {
     private String pathImage;
     private String trueAnswer;
     private String falseAnswer;
+    private QuestionLevel level;
 
     public Question(){}
 
@@ -85,6 +86,14 @@ public class Question {
 
     public void setFalseAnswer(String falseAnswer) {
         this.falseAnswer = falseAnswer;
+    }
+
+    public QuestionLevel getLevel() {
+        return level;
+    }
+
+    public void setLevel(QuestionLevel level) {
+        this.level = level;
     }
 
     @Override

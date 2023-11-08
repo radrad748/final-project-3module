@@ -1,5 +1,6 @@
 package com.javarush.radik.controllers.jsResources;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,14 +11,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-//считываем js файл registration.js
-@WebServlet(value = "/registration-js")
-public class RegistrationJs extends HttpServlet {
-    private final Logger log = LoggerFactory.getLogger(RegistrationJs.class);
+// Сервлет для чтение js файлов
+@WebServlet(value = "/all-js")
+public class JsResource extends HttpServlet {
+    private final Logger log = LoggerFactory.getLogger(JsResource.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Чтение registration.js");
-        String path = "WEB-INF/js/registration.js";
+        log.info("Идет чтение js файла");
+        ServletContext context = req.getServletContext();
+        String path = (String) context.getAttribute("pathJs");
+
         InputStream inputStream = getServletContext().getResourceAsStream(path);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
              PrintWriter out = resp.getWriter()){
@@ -29,7 +32,7 @@ public class RegistrationJs extends HttpServlet {
             }
             inputStream.close();
         } catch (Exception e){
-            log.error("Произошла ошибка при чтение файла registration.js");
+            log.error("Произошла ошибка при чтение файла js файла");
             throw  e;
         } finally {
             inputStream.close();

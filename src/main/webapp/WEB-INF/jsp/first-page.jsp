@@ -1,9 +1,8 @@
-<%@ page import="com.javarush.radik.entity.Question" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="com.javarush.radik.entity.DTO.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 27.10.2023
-  Time: 17:59
+  Date: 31.10.2023
+  Time: 13:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,38 +38,15 @@
         </div>
     </div>
 </nav>
-<div class="divPlay">
-    <%
-        HttpSession session1 = request.getSession();
-        int indexQuestion = (int) session1.getAttribute("numberQuestion") - 1;
-        List<Question> questions = (List<Question>) session1.getAttribute("questions");
-        List<String> answers = questions.get(indexQuestion).getAnswers();
-        int indexTrueAnswer= questions.get(indexQuestion).getIndexTrueAnswer();
-        session1.setAttribute("indexTrueAnswer", indexTrueAnswer);
-        session1.setAttribute("trueAnswer", questions.get(indexQuestion).getTrueAnswer());
-        session1.setAttribute("wrongAnswer", questions.get(indexQuestion).getFalseAnswer());
-    %>
-    <p>Вопрос <%= session1.getAttribute("numberQuestion") %> из 10</p>
-    <h1 class="center-text"><%= questions.get(indexQuestion).getQuestion() %></h1>
-    <div class="divImage">
-        <img src="<%= questions.get(indexQuestion).getPathImage() %>" class="image-question">
+<% UserDto user = (UserDto) session.getAttribute("user"); %>
+<div class="head-next">
+    <img src="/images/article.png" class="card-games">
+    <div><br><br>
+        <p style="font-size: 30px; width: 70%" class="center-text">Привет <%= user.getName() %>!</p><br>
+        <p style="font-size: 18px; width: 70%" class="center-text">Добро пожаловать в мир "Реальная мозгокачка"! тут ты сможешь найти различные интересные
+        игры, такие как проверка твоих знаний или тренеровка памяти. Так что переходи в раздел "список игр" и выбирай что тебе по душе:)</p>
     </div>
-    <form method="get" action="#" id="myForm">
-    <div class="divForm">
-        <div class="divAnswers">
-                <% for (int i = 0; i < answers.size(); i++) { %>
-                <input type="radio" id="<%= "option" + i %>" name="group" value="<%= i %>">
-                <label for="<%= "option" + i %>"><%= answers.get(i) %></label><br>
-                <% } %>
-        </div>
-    </div>
-     <div class="div-btn">
-         <input type="submit" value="ОТВЕТИТЬ" class="btn btn-secondary btn-question">
-     </div>
-    </form>
 </div>
-<% ServletContext context = request.getServletContext();
-    context.setAttribute("pathJs", "WEB-INF/js/play-page.js"); %>
-<script src="/all-js"></script>
+
 </body>
 </html>

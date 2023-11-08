@@ -63,7 +63,7 @@ public class Database implements Repository<User>{
         log.info("Запрос создать user: ID = {}, name = {}, email = {}, запрос успешно выполнен", id, user.getName(), user.getEmail());
     }
 
-    public User biFindEmail(String email) {
+    public User byFindEmail(String email) {
         User user = users.entrySet().stream()
                 .filter(entry -> email.equals(entry.getValue().getEmail()))
                 .map(Map.Entry::getValue)

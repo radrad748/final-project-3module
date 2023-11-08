@@ -62,7 +62,7 @@ public class ServiceUsers {
     }
 
     public  User byFindEmail(String email) {
-        User user =  database.biFindEmail(email);
+        User user =  database.byFindEmail(email);
         if (user == null) log.info("Запрос к базе данных поиск user по Email {},ответ от базы данных - такой user в базе данных отсутствует", email);
         else log.info("Запрос к базе данных поиск user по Email {},ответ от базы данных - поиск выполнен user: ID = {}, name = {}, email = {}", email, user.getId(), user.getName(), user.getEmail());
         return user;

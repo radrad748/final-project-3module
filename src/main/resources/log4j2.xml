@@ -9,7 +9,7 @@
             <DefaultRolloverStrategy>
                 <Delete basePath="logs" maxDepth="1">
                     <IfFileName glob="quest.*.log" />
-                    <IfLastModified age="P7D" />
+                    <IfLastModified age="7d" />
                 </Delete>
             </DefaultRolloverStrategy>
             <Policies>

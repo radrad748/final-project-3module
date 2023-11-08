@@ -11,15 +11,14 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-// переход на первую страницу после как пользователь успешно залогинелся
-@WebServlet(value = "/first-page")
-public class FirstPage extends HttpServlet {
-    private final Logger log = LoggerFactory.getLogger(FirstPage.class);
+//кнопка старт для начало игры, можно было обойтись без этой страницы но мне захотелось чтоб игра начиналась так
+@WebServlet(value = "/start")
+public class Start extends HttpServlet {
+    private final Logger log = LoggerFactory.getLogger(Start.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Переходим на страницу старта после как пользователь успешного залогинелся");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/first-page.jsp");
+        log.info("перевод на страниу начало игры по адресу /start");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/head.jsp");
         dispatcher.forward(req, resp);
     }
-
 }
