@@ -29,7 +29,6 @@ public class LoginPage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         log.info("Запрос авторизации");
-        service.create(new User("sasha", "dad@mail.ru", Encoder.encode("111")));
         HttpSession session = req.getSession(true);
 
         JSONObject jsonObject = getJsonRequest(req);

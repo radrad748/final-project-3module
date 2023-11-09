@@ -34,8 +34,11 @@ public class SettingsPage extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    //изменение данных пользователя
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDto dto = (UserDto) req.getSession().getAttribute("user");
+        log.info("Идет измненения данных пощьлователя с email: {}", dto.getEmail());
         if (checkIfValidRequest(req)) {
             sendSuccessfulAnswer(resp);
         } else {
@@ -43,12 +46,17 @@ public class SettingsPage extends HttpServlet {
         }
     }
 
+    //удаление пользователя
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDto dto = (UserDto) req.getSession().getAttribute("user");
+        log.info("Удаление пользователя с email: {}", dto.getEmail());
         deleteUser(req.getSession());
     }
 
+    // проверка параметров запроса на изменения данных
     private boolean checkIfValidRequest(HttpServletRequest req) throws IOException {
+        log.info("проверка на наличие параметров при запросе на такие как 'name, email, oldPassword and newPassword'");
         JSONObject json = getJsonRequest(req);
         if (ifExistsParameter(json, "name")) {
             return updateUserName(json, req.getSession());
@@ -61,7 +69,9 @@ public class SettingsPage extends HttpServlet {
         }
         return false;
     }
+    // ответ при успешном изменении
     private void sendSuccessfulAnswer(HttpServletResponse resp) throws IOException {
+        log.info("Отправка успешного ответа при изменении персональных данных пользователя");
         try (PrintWriter out = resp.getWriter()){
             JSONObject json = new JSONObject();
             json.put("isValid", true);
@@ -69,10 +79,13 @@ public class SettingsPage extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             out.write(json.toString());
         } catch (Exception e) {
+            log.error("при отправки успешего ответа на изменения персональных данных пользователя произошла ошибка");
             throw e;
         }
     }
+    //ответ при неуспешном изменении
     private void sendUnsuccessfulAnswer(HttpServletResponse resp) throws IOException {
+        log.info("Отправка отрицательного ответа при изменении персональных данных пользователя");
         try (PrintWriter out = resp.getWriter()){
             JSONObject json = new JSONObject();
             json.put("isValid", false);
@@ -80,10 +93,11 @@ public class SettingsPage extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             out.write(json.toString());
         } catch (Exception e) {
+            log.error("при отправки отрицательного ответа на изменения персональных данных пользователя произошла ошибка");
             throw e;
         }
     }
-
+    //пользователь меняет имя
     private boolean updateUserName(JSONObject json, HttpSession session) {
         String name = json.getString("name");
         if (!isValidName(name)) return false;
@@ -95,9 +109,10 @@ public class SettingsPage extends HttpServlet {
         User user = service.byFindEmail(dto.getEmail());
         user.setName(name);
         service.update(user);
-
+        log.info("Изменение имени прошло успешно, имя пользователя: {}", name);
         return true;
     }
+    //пользователь меняет email
     private boolean updateUserEmail(JSONObject json, HttpSession session) {
         String email = json.getString("email");
         if (!isValidEmail(email)) return false;
@@ -110,9 +125,10 @@ public class SettingsPage extends HttpServlet {
         session.setAttribute("user", dto);
         user.setEmail(email);
         service.update(user);
-
+        log.info("Изменение емайла прошло успешно, емайл пользователя: {}", email);
         return true;
     }
+    //пользователь меняет пароль
     private boolean updateUserPassword(JSONObject json, HttpSession session) {
         String oldPassword = json.getString("oldPassword");
         String newPassword = json.getString("newPassword");
@@ -128,15 +144,17 @@ public class SettingsPage extends HttpServlet {
 
         user.setPassword(newPasswordEncode);
         service.update(user);
+        log.info("Замена парольа прошло успешно");
         return true;
     }
+    //удаляем профиль
     public boolean deleteUser(HttpSession session) {
         UserDto dto = (UserDto) session.getAttribute("user");
         User user = service.byFindEmail(dto.getEmail());
         session.invalidate();
         return service.delete(user);
     }
-
+    //получаем json обьект с данными из запроса
     private JSONObject getJsonRequest(HttpServletRequest req) throws IOException {
         try (BufferedReader reader = req.getReader()) {
             StringBuilder jsonRequest = new StringBuilder();
@@ -146,12 +164,12 @@ public class SettingsPage extends HttpServlet {
             }
             return new JSONObject(jsonRequest.toString());
         } catch (Exception e) {
+            log.error("В методе getJsonRequest(HttpServletRequest req) при получение json обьект из запроса проищошла ошибка");
             throw e;
         }
     }
 
-
-
+    //проверка если есть параметры конкрентные параметры в запросе
     private boolean ifExistsParameter(JSONObject json, String parameter) {
         try {
             String str = json.getString(parameter);
