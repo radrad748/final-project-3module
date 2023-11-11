@@ -1,0 +1,3 @@
+2023-11-11 13:50:58,514 INFO ServiceUserResultQuestions: Запрос к БД удалить статистику по ID = 0, для user: ID = 5
+2023-11-11 13:50:58,573 INFO ServiceUserResultQuestions: Запрос к БД удалить статистику по ID = 0, для user: ID = 5
+2023-11-11 13:50:58,594 INFO ServiceUserResultQuestions: Запрос к БД удалить статистику по ID = 0, для user: ID = 5

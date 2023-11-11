@@ -1,7 +1,9 @@
 package com.javarush.radik.controllers;
 
 import com.javarush.radik.entity.DTO.UserDto;
+import com.javarush.radik.entity.ResultQuestionsGame;
 import com.javarush.radik.entity.User;
+import com.javarush.radik.services.ServiceUserResultQuestions;
 import com.javarush.radik.services.ServiceUsers;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class NextQuestion extends HttpServlet {
     private final Logger log = LoggerFactory.getLogger(NextQuestion.class);
     private final ServiceUsers service = ServiceUsers.getInstance();
+    private final ServiceUserResultQuestions results = ServiceUserResultQuestions.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("передаем следуйший вопрос");
@@ -49,22 +52,19 @@ public class NextQuestion extends HttpServlet {
         session.setAttribute("correctAnswers", countResult);
     }
     private void bestResultUserChange(HttpSession session) {
-        //меняем dto и user +1 к числу сыгранных игр
+        //меняем число сыгранных игр и лучший результат
         log.info("изменения статистики");
-        UserDto dto = (UserDto) session.getAttribute("user");
-        int count = dto.getCount();
+        ResultQuestionsGame result = (ResultQuestionsGame) session.getAttribute("result");
+        int count = result.getCount();
         count++;
-        dto.setCount(count);
-
-        User user = service.byFindEmail(dto.getEmail());
-        user.setCout(count);
+        result.setCount(count);
 
         int correctAnswers = (int) session.getAttribute("correctAnswers");
-        if (correctAnswers > dto.getBestResult()) {
+        if (correctAnswers > result.getBestResult()) {
             //если результат прошедшей игры самый лучший у пользователя то сохранить этот результат
-            dto.setBestResult(correctAnswers);
-            user.setBestResult(correctAnswers);
+            result.setBestResult(correctAnswers);
         }
-        session.setAttribute("user", dto);
+        session.setAttribute("result", result);
+        results.update(result);
     }
 }

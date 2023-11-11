@@ -23,7 +23,7 @@ public class PlayPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("Переход на страничку начало игры");
-        List<Question> questionsList = questions.getTenQuestions();
+        List<Question> questionsList = questions.getTenQuestionsEasy();
 
         HttpSession session = req.getSession();
         session.setAttribute("questions", questionsList);

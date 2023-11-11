@@ -9,8 +9,7 @@ public class UserDto {
     private long id;
     private String name;
     private String email;
-    private int count;
-    private int bestResult;
+
 
     public UserDto(long id, String name, String email) {
         this.id = id;
@@ -40,22 +39,6 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getBestResult() {
-        return bestResult;
-    }
-
-    public void setBestResult(int bestResult) {
-        this.bestResult = bestResult;
     }
 
     @Override

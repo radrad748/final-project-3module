@@ -2,6 +2,7 @@ package com.javarush.radik.services;
 
 import com.javarush.radik.entity.User;
 import com.javarush.radik.repositories.Database;
+import com.javarush.radik.repositories.DatabaseQuestions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

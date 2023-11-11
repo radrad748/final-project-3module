@@ -1,6 +1,8 @@
 package com.javarush.radik.controllers;
 
 import com.javarush.radik.entity.DTO.UserDto;
+import com.javarush.radik.entity.ResultQuestionsGame;
+import com.javarush.radik.services.ServiceUserResultQuestions;
 import com.javarush.radik.services.ServiceUsers;
 import com.javarush.radik.util.MapperDto;
 import jakarta.servlet.annotation.WebServlet;
@@ -40,7 +42,7 @@ public class LoginPage extends HttpServlet {
         else unsuccessfulLogin(resp);
     }
 
-    // проверяем email i пароль
+    // проверяем email и пароль
     private boolean checkUser(String email, String password, HttpSession session) {
         if(email == null || password == null) {
             log.info("Введённый пользователем email/password равено null");

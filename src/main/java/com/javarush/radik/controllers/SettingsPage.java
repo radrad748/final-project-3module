@@ -1,8 +1,10 @@
 package com.javarush.radik.controllers;
 
 import com.javarush.radik.entity.DTO.UserDto;
+import com.javarush.radik.entity.ResultQuestionsGame;
 import com.javarush.radik.entity.User;
 import com.javarush.radik.repositories.Database;
+import com.javarush.radik.services.ServiceUserResultQuestions;
 import com.javarush.radik.services.ServiceUsers;
 import com.javarush.radik.util.Encoder;
 import jakarta.servlet.RequestDispatcher;
@@ -27,6 +29,7 @@ import java.util.regex.Pattern;
 public class SettingsPage extends HttpServlet {
     private final Logger log = LoggerFactory.getLogger(SettingsPage.class);
     private final ServiceUsers service = ServiceUsers.getInstance();
+    private final ServiceUserResultQuestions results = ServiceUserResultQuestions.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("перевод на страниу по адресу /settings");
@@ -151,6 +154,7 @@ public class SettingsPage extends HttpServlet {
     public boolean deleteUser(HttpSession session) {
         UserDto dto = (UserDto) session.getAttribute("user");
         User user = service.byFindEmail(dto.getEmail());
+        results.deleteAllWithUserID(user.getId());
         session.invalidate();
         return service.delete(user);
     }

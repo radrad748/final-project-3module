@@ -16,14 +16,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-//кнопка старт для начало игры, можно было обойтись без этой страницы но мне захотелось чтоб игра начиналась так
-@WebServlet(value = "/start")
-public class Start extends HttpServlet {
-    private final Logger log = LoggerFactory.getLogger(Start.class);
-    private static ServiceUserResultQuestions results = ServiceUserResultQuestions.getInstance();
+@WebServlet(value = "/statistic-questions-easy")
+public class QuestionEasyStatistic extends HttpServlet {
+    private final Logger log = LoggerFactory.getLogger(QuestionEasyStatistic.class);
+    private final ServiceUserResultQuestions results = ServiceUserResultQuestions.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("Создаем/получаем статистику на игру вопросы: левел легкий, далее перевод на страниу начало игры по адресу /start");
+        log.info("Показать статистику игры - вопросы: легкий уровень, перевод на стриницу по адресу /statistic-questions-easy");
         HttpSession session = req.getSession();
         UserDto user = (UserDto) session.getAttribute("user");
 
@@ -36,7 +35,7 @@ public class Start extends HttpServlet {
             session.setAttribute("result", result);
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/head.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/statistics.jsp");
         dispatcher.forward(req, resp);
     }
 }

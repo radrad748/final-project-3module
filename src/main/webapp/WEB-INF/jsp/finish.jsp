@@ -1,4 +1,5 @@
-<%@ page import="com.javarush.radik.entity.DTO.UserDto" %><%--
+<%@ page import="com.javarush.radik.entity.DTO.UserDto" %>
+<%@ page import="com.javarush.radik.entity.ResultQuestionsGame" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 29.10.2023
@@ -38,7 +39,8 @@
         </div>
     </div>
 </nav>
-<% UserDto user = (UserDto) request.getSession().getAttribute("user"); %>
+<% ResultQuestionsGame result = (ResultQuestionsGame) request.getSession().getAttribute("result"); %>
+
 <div class="divPlay">
     <h1 class="center-text">Результат</h1>
     <div class="div-statistics-info1">
@@ -48,8 +50,8 @@
     </div>
     <div class="div-statistics-info2">
         <p class="text-statistics text-statistics-style"><%= request.getSession().getAttribute("correctAnswers") %> из 10 </p>
-        <p class="text-statistics text-statistics-style"><%= user.getBestResult() %> правильных ответов из 10</p>
-        <p class="text-statistics text-statistics-style"><%= user.getCount() %></p>
+        <p class="text-statistics text-statistics-style"><%= result.getBestResult() %> правильных ответов из 10</p>
+        <p class="text-statistics text-statistics-style"><%= result.getCount() %></p>
     </div>
     <div class="div-statistics-info1">
         <p>Спасибо за игру!</p>

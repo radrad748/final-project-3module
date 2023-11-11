@@ -1,9 +1,8 @@
-
-<%@ page import="com.javarush.radik.entity.ResultQuestionsGame" %><%--
+<%@ page import="com.javarush.radik.entity.DTO.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 30.10.2023
-  Time: 15:17
+  Date: 09.11.2023
+  Time: 17:54
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -39,16 +38,17 @@
         </div>
     </div>
 </nav>
-<% ResultQuestionsGame result = (ResultQuestionsGame) request.getSession().getAttribute("result"); %>
+<% UserDto user = (UserDto) request.getSession().getAttribute("user"); %>
 <div class="divPlay">
-    <h1 class="center-text">Вопросы: легкий уровень</h1>
+    <h1 class="center-text">Статистика игр:</h1>
     <div class="div-statistics-info1">
-        <p class="text-statistics">Кол-во сыгранных игр:</p>
-        <p class="text-statistics">Лучший результат:</p>
+        <p class="text-statistics">Имя:</p>
+        <p class="text-statistics">Емаил:</p><br><br>
+        <a href="/statistic-questions-easy" class="text-statistics text-statistics-style" style=" color: #807c7c" onmouseover="this.style.color='#3d3c3c'" onmouseout="this.style.color='#807c7c'">Вопросы: уровень легкий</a>
     </div>
     <div class="div-statistics-info2">
-        <p class="text-statistics text-statistics-style"><%= result.getCount() %></p>
-        <p class="text-statistics text-statistics-style"><%= result.getBestResult() %> правельных ответов из 10</p>
+        <p class="text-statistics text-statistics-style"><%= user.getName() %></p>
+        <p class="text-statistics text-statistics-style"><%= user.getEmail() %></p>
     </div>
 </div>
 </body>

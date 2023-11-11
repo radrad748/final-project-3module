@@ -9,16 +9,12 @@ public class User {
     private long id;
     private String name;
     private String email;
-    private int cout;
-    private int bestResult;
     private String password;
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        cout = 0;
-        bestResult = 0;
     }
 
     public User() {}
@@ -55,21 +51,6 @@ public class User {
         this.password = password;
     }
 
-    public int getCout() {
-        return cout;
-    }
-
-    public void setCout(int cout) {
-        this.cout = cout;
-    }
-
-    public int getBestResult() {
-        return bestResult;
-    }
-
-    public void setBestResult(int bestResult) {
-        this.bestResult = bestResult;
-    }
 
     @Override
     public String toString() {

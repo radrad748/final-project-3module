@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EncoderTest {
 
+    //проверка что входная строка не равна закодированой строке
     @ParameterizedTest
     @MethodSource("argsFactory")
     void testEncode(String str) {
@@ -19,6 +20,7 @@ class EncoderTest {
         assertNotNull(encode);
         assertNotEquals(str, encode);
     }
+    //кодируем входную строку, после декодируем и проверяем что входная строка равна декодированой строке
     @ParameterizedTest
     @MethodSource("argsFactory")
     void testDecode(String str) {
@@ -27,6 +29,7 @@ class EncoderTest {
 
         assertEquals(str, decode);
     }
+    //проверка при кодировании пустую строку
     @Test
      void testEncodeWithEmptyInput() {
         String input = "";
@@ -34,6 +37,7 @@ class EncoderTest {
 
         assertEquals("", encoded);
     }
+    //проверка при декодировании пустую строку
     @Test
     void testDecodeWithEmptyInput() {
         String input = "";
@@ -41,7 +45,7 @@ class EncoderTest {
 
         assertEquals("", decoded);
     }
-
+    //при кодировке null выкидывает NullPointerException
     @Test
     void whenArgIsNullEncode() {
         String input = null;
@@ -49,6 +53,7 @@ class EncoderTest {
             Encoder.encode(input);
         });
     }
+    //при декодировке null выкидывает NullPointerException
     @Test
     void whenArgIsNullDecode() {
         String input = null;
