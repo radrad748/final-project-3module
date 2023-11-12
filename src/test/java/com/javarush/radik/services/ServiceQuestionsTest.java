@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.powermock.reflect.Whitebox;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ServiceQuestionsTest {
     @Mock
     private DatabaseQuestions mockDbQuestions;
-    ServiceQuestions service;
+    @Mock
+    private Logger log;
+    private ServiceQuestions service;
     @BeforeEach
     void init() {
         service = ServiceQuestions.getInstance();
         Whitebox.setInternalState(service, "databaseQuestions", mockDbQuestions);
+        Whitebox.setInternalState(service, "log", log);
     }
 
     //проверка на кол-во обьекта question, метод должен вернуть 10

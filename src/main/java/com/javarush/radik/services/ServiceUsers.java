@@ -18,7 +18,7 @@ public class ServiceUsers {
 
 
 
-    public User byFindID(long id) {
+    public User byFindId(long id) {
         User user = database.byFindId(id);
         if (user == null) log.info("Запрос к базе данных найти user: ID = {}; запрос прошел успешно, ответ - такой user отсутствует", id);
         else log.info("Запрос к базе данных найти user: ID = {}; запрос прошел успешно, ответ - такой user существует - " +

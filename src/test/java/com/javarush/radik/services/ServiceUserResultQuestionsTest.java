@@ -12,8 +12,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.powermock.reflect.Whitebox;
+import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,11 +25,14 @@ import static org.mockito.ArgumentMatchers.any;
 class ServiceUserResultQuestionsTest {
     @Mock
     private RepositoryUserResultQuestions repository;
+    @Mock
+    private Logger log;
     private ServiceUserResultQuestions service;
     @BeforeEach
     void init () {
         service = ServiceUserResultQuestions.getInstance();
         Whitebox.setInternalState(service, "userResults", repository);
+        Whitebox.setInternalState(service, "log", log);
     }
 
     //проверяем вызывает ли service метод repository.byFindId() с нужными параметрами
@@ -136,5 +142,45 @@ class ServiceUserResultQuestionsTest {
         Mockito.verify(repository).deleteAllWithUserID(id);
     }
 
-    
+    //метод service.getUserResultLevelEasy() внутри себя должен вызывать метод repository.getAll()
+    @Test
+    void verifyMethodRepository_getAllWhenUseService_getUserResultLevelEasy(){
+        service.getUserResultLevelEasy(1);
+        Mockito.verify(repository).getAll();
+    }
+
+    //при аргументе null должно выкинуть NullPointerException
+    @Test
+    void whenFindUserResultArgNull() {
+        Long a = null;
+        assertThrows(NullPointerException.class, () -> service.getUserResultLevelEasy(a));
+    }
+
+    //при поиске UserResultQuestion по id User, когда нет result по id User должно вернуть null
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, 3 })
+    void whenResultNotExistWithUserId(int id) {
+        Mockito.when(repository.getAll()).thenReturn(GetCollectionResultQuestionsGame());
+        assertEquals(null, service.getUserResultLevelEasy(id));
+    }
+
+    //проверка если метод возвращает ResultQuestionsGame тип Easy
+    @ParameterizedTest
+    @ValueSource(ints = { 15, 16, 17, 18, 19 })
+    void checkIfReturnLevelEasy(int id) {
+        Mockito.when(repository.getAll()).thenReturn(GetCollectionResultQuestionsGame());
+        ResultQuestionsGame resuls = service.getUserResultLevelEasy(id);
+        assertEquals(QuestionLevel.EASY, resuls.getLevel());
+    }
+
+    private Collection<ResultQuestionsGame> GetCollectionResultQuestionsGame() {
+        Collection<ResultQuestionsGame> result = new ArrayList<>();
+        for(int i = 10; i < 15; i++) {
+            result.add(new ResultQuestionsGame(i, QuestionLevel.MEDIUM));
+        }
+        for(int i = 15; i < 20; i++) {
+            result.add(new ResultQuestionsGame(i, QuestionLevel.EASY));
+        }
+        return result;
+    }
 }
